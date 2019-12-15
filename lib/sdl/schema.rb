@@ -25,14 +25,14 @@ module SDL
     end
 
     def find_model(name)
-      models.find { |m| m.name == name }
+      models.find { |m| m.name == name.to_s }
     end
 
     def find_enum(name)
-      enums.find { |e| e.name == name }
+      enums.find { |e| e.name == name.to_s }
     end
 
-    def depsort_models!
+    def depsort!
       each_node = models.method(:each)
       each_child = lambda do |model, &block|
         belongs_to = model.fields.belongs_to.map(&:model_name)

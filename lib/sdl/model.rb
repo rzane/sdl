@@ -9,7 +9,7 @@ module SDL
     attr_reader :options
 
     def initialize(name, fields: [], **options, &block)
-      @name = name
+      @name = name.to_s
       @fields = fields
       @options = options
       instance_eval(&block) if block_given?

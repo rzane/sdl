@@ -5,7 +5,7 @@ module SDL
     attr_reader :options
 
     def initialize(name, values: [], **options)
-      @name = name
+      @name = name.to_s
       @values = values
       @options = options
     end

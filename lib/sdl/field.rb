@@ -22,7 +22,7 @@ module SDL
       scale: nil,
       **options
     )
-      @name = name
+      @name = name.to_s
       @type = type
       @required = required
       @unique = unique
