@@ -20,8 +20,8 @@ module SDL
       @models << Model.new(*args, &block)
     end
 
-    def enum(*args)
-      @enums << Enum.new(*args)
+    def enum(*args, &block)
+      @enums << Enum.new(*args, &block)
     end
 
     def find_model(name)
