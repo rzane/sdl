@@ -1,6 +1,7 @@
 RSpec.describe SDL::Fields do
   let(:string) { SDL::Field.new(:string, :string) }
   let(:integer) { SDL::Field.new(:integer, :integer) }
+  let(:enum) { SDL::Enum.new(:enum) }
   let(:belongs_to) { SDL::Association::BelongsTo.new(:belongs_to) }
   let(:has_one) { SDL::Association::HasOne.new(:has_one) }
   let(:has_many) { SDL::Association::HasMany.new(:has_many) }
@@ -11,6 +12,7 @@ RSpec.describe SDL::Fields do
     SDL::Fields.new([
       string,
       integer,
+      enum,
       belongs_to,
       has_one,
       has_many,
@@ -25,6 +27,10 @@ RSpec.describe SDL::Fields do
 
   it "selects attributes" do
     expect(fields.attributes).to eq([string, integer])
+  end
+
+  it "selects enums" do
+    expect(fields.enums).to eq([enum])
   end
 
   it "selects associations" do
