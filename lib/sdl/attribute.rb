@@ -1,8 +1,8 @@
 require "sdl/types"
 
 module SDL
-  # A field of a {Model}
-  class Field
+  # An attribute of a {Model}
+  class Attribute
     include Types::Queries
 
     # The name of the field

@@ -17,7 +17,7 @@ RSpec.describe SDL::Model do
 
   it "accepts an attribute" do
     model.attribute :name, :string
-    expect(model.fields.first).to be_an(SDL::Field)
+    expect(model.fields.first).to be_an(SDL::Attribute)
   end
 
   it "accepts an enum" do

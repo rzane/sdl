@@ -1,6 +1,6 @@
 RSpec.describe SDL::Fields do
-  let(:string) { SDL::Field.new(:string, :string) }
-  let(:integer) { SDL::Field.new(:integer, :integer) }
+  let(:string) { SDL::Attribute.new(:string, :string) }
+  let(:integer) { SDL::Attribute.new(:integer, :integer) }
   let(:enum) { SDL::Enum.new(:enum) }
   let(:belongs_to) { SDL::Association::BelongsTo.new(:belongs_to) }
   let(:has_one) { SDL::Association::HasOne.new(:has_one) }

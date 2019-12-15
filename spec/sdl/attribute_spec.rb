@@ -1,4 +1,4 @@
-RSpec.describe SDL::Field do
+RSpec.describe SDL::Attribute do
   subject(:field) { build }
 
   it "has a name" do
@@ -42,6 +42,6 @@ RSpec.describe SDL::Field do
   end
 
   def build(**opts)
-    SDL::Field.new(:value, :string, **opts)
+    SDL::Attribute.new(:value, :string, **opts)
   end
 end

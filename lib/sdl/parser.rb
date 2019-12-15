@@ -1,5 +1,5 @@
 require "sdl/types"
-require "sdl/field"
+require "sdl/attribute"
 require "sdl/association"
 require "sdl/attachment"
 require "active_support/core_ext/string/inflections"
@@ -35,7 +35,7 @@ module SDL
       opts[:default] = coerce(opts[:default], type) if opts[:default]
 
       if type.is_a?(Symbol)
-        Field.new(name, type, opts)
+        Attribute.new(name, type, opts)
       else
         type.new(name, opts)
       end

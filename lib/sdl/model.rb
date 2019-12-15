@@ -1,5 +1,5 @@
 require "sdl/fields"
-require "sdl/field"
+require "sdl/attribute"
 require "sdl/enum"
 require "sdl/association"
 require "sdl/attachment"
@@ -43,7 +43,7 @@ module SDL
     #     attribute :name, :string, required: true
     #   end
     def attribute(name, type, **options)
-      @fields << Field.new(*name, type, **options)
+      @fields << Attribute.new(*name, type, **options)
     end
 
     # Adds an {Enum} to the model
