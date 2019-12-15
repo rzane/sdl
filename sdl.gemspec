@@ -4,7 +4,7 @@ require "sdl/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "sdl"
-  spec.version       = Sdl::VERSION
+  spec.version       = SDL::VERSION
   spec.authors       = ["Ray Zane"]
   spec.email         = ["raymondzane@gmail.com"]
 

@@ -1,6 +1,6 @@
-RSpec.describe Sdl do
+RSpec.describe SDL do
   it "has a version number" do
-    expect(Sdl::VERSION).not_to be nil
+    expect(SDL::VERSION).not_to be nil
   end
 
   it "does something useful" do
