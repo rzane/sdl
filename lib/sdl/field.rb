@@ -34,16 +34,16 @@ module SDL
       @options = options
     end
 
-    def index?
-      @index
-    end
-
     def required?
       @required
     end
 
     def unique?
       @unique
+    end
+
+    def index?
+      @index
     end
   end
 end

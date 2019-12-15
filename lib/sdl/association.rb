@@ -7,8 +7,8 @@ module SDL
     attr_reader :options
 
     def initialize(name, model_name: name, **options)
-      @name = name
-      @model_name = model_name
+      @name = name.to_s
+      @model_name = model_name.to_s
       @options = options
     end
   end
@@ -17,16 +17,25 @@ module SDL
   end
 
   class Association::HasMany < Association
-    def initialize(name, model_name: name.to_s.singularize.to_sym, **options)
+    def initialize(name, model_name: name.to_s.singularize, **options)
       super(name, model_name: model_name, **options)
     end
   end
 
   class Association::BelongsTo < Association
-    def initialize(name, required: false, unique: false, **options)
+    def initialize(
+      name,
+      required: false,
+      unique: false,
+      index: false,
+      foreign_key: false,
+      **options
+    )
       super(name, options)
       @required = required
       @unique = unique
+      @index = index
+      @foreign_key = foreign_key
     end
 
     def required?
@@ -35,6 +44,14 @@ module SDL
 
     def unique?
       @unique
+    end
+
+    def index?
+      @index
+    end
+
+    def foreign_key?
+      @foreign_key
     end
   end
 end

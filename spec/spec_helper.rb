@@ -1,4 +1,10 @@
 require "bundler/setup"
+require "simplecov"
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
 require "sdl"
 
 RSpec.configure do |config|
