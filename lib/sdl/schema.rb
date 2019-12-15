@@ -1,5 +1,4 @@
 require "tsort"
-require "sdl/enum"
 require "sdl/model"
 
 module SDL
@@ -8,28 +7,18 @@ module SDL
 
   class Schema
     attr_reader :models
-    attr_reader :enums
 
     def initialize(&block)
       @models = []
-      @enums = []
       instance_eval(&block) if block_given?
-    end
-
-    def model(*args, &block)
-      @models << Model.new(*args, &block)
-    end
-
-    def enum(*args, &block)
-      @enums << Enum.new(*args, &block)
     end
 
     def find_model(name)
       models.find { |m| m.name == name.to_s }
     end
 
-    def find_enum(name)
-      enums.find { |e| e.name == name.to_s }
+    def model(*args, &block)
+      @models << Model.new(*args, &block)
     end
 
     def depsort!

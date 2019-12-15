@@ -1,5 +1,6 @@
 require "sdl/fields"
 require "sdl/field"
+require "sdl/enum"
 require "sdl/association"
 require "sdl/attachment"
 
@@ -21,6 +22,10 @@ module SDL
 
     def field(*args)
       @fields << Field.new(*args)
+    end
+
+    def enum(*args)
+      @fields << Enum.new(*args)
     end
 
     def belongs_to(*args)

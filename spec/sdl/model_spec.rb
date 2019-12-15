@@ -20,6 +20,11 @@ RSpec.describe SDL::Model do
     expect(model.fields.first).to be_an(SDL::Field)
   end
 
+  it "accepts an enum" do
+    model.enum :status
+    expect(model.fields.first).to be_an(SDL::Enum)
+  end
+
   it "accepts a belongs_to association" do
     model.belongs_to :user
     expect(model.fields.first).to be_an(SDL::Association::BelongsTo)

@@ -7,17 +7,11 @@ RSpec.describe SDL::Schema do
     expect(schema.models).to eq([])
   end
 
-  it "has enums" do
-    expect(schema.enums).to eq([])
-  end
-
   it "accepts definition" do
     schema = SDL::Schema.new do
-      enum :status
       model :user
     end
 
-    expect(schema.enums.length).to eq(1)
     expect(schema.models.length).to eq(1)
   end
 
@@ -26,14 +20,6 @@ RSpec.describe SDL::Schema do
       schema = SDL::Schema.new
       schema.model :user
       expect(schema.find_model(:user)).to be_a(SDL::Model)
-    end
-  end
-
-  describe "#find_enum" do
-    it "finds a enum by name" do
-      schema = SDL::Schema.new
-      schema.enum :status
-      expect(schema.find_enum(:status)).to be_a(SDL::Enum)
     end
   end
 

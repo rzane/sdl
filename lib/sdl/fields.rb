@@ -1,5 +1,6 @@
 require "sdl/types"
 require "sdl/field"
+require "sdl/enum"
 require "sdl/association"
 require "sdl/attachment"
 
@@ -30,6 +31,10 @@ module SDL
 
     def attachments
       grep Attachment
+    end
+
+    def enums
+      grep Enum
     end
 
     Types.all.each do |meth|

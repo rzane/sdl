@@ -21,7 +21,7 @@ module SDL
     end
 
     def self.all
-      scalar + association + attachment
+      scalar + association + attachment + %i[enum]
     end
 
     module Queries
