@@ -10,8 +10,14 @@ module SDL
   end
 
   class Attachment::HasOne < Attachment
+    def type
+      :has_one_attached
+    end
   end
 
   class Attachment::HasMany < Attachment
+    def type
+      :has_many_attached
+    end
   end
 end

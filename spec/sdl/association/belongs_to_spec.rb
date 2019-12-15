@@ -13,6 +13,10 @@ RSpec.describe SDL::Association::BelongsTo do
     expect(association.name).to eq("user")
   end
 
+  it "has a type" do
+    expect(association.type).to eq(:belongs_to)
+  end
+
   it "has an inferred model_name" do
     expect(association.model_name).to eq("user")
   end

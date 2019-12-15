@@ -14,11 +14,18 @@ module SDL
   end
 
   class Association::HasOne < Association
+    def type
+      :has_one
+    end
   end
 
   class Association::HasMany < Association
     def initialize(name, model_name: name.to_s.singularize, **options)
       super(name, model_name: model_name, **options)
+    end
+
+    def type
+      :has_many
     end
   end
 
@@ -36,6 +43,10 @@ module SDL
       @unique = unique
       @index = index
       @foreign_key = foreign_key
+    end
+
+    def type
+      :belongs_to
     end
 
     def required?

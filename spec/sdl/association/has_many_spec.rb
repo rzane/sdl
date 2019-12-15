@@ -13,6 +13,10 @@ RSpec.describe SDL::Association::HasMany do
     expect(association.name).to eq("users")
   end
 
+  it "has a type" do
+    expect(association.type).to eq(:has_many)
+  end
+
   it "has an inferred model_name" do
     expect(association.model_name).to eq("user")
   end

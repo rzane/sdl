@@ -1,8 +1,8 @@
 require "sdl/fields"
 
 RSpec.describe SDL::Fields do
-  let(:string) { SDL::Field.new(:string, type: :string) }
-  let(:integer) { SDL::Field.new(:integer, type: :integer) }
+  let(:string) { SDL::Field.new(:string, :string) }
+  let(:integer) { SDL::Field.new(:integer, :integer) }
   let(:belongs_to) { SDL::Association::BelongsTo.new(:belongs_to) }
   let(:has_one) { SDL::Association::HasOne.new(:has_one) }
   let(:has_many) { SDL::Association::HasMany.new(:has_many) }

@@ -53,12 +53,8 @@ module SDL
 
     Field::TYPES.each do |meth|
       define_method(meth) do
-        attributes.select { |field| field.type == meth }
+        select { |field| field.type == meth }
       end
-    end
-
-    def add(field)
-      @fields << field
     end
   end
 end
