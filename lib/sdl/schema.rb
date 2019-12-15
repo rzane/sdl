@@ -29,7 +29,7 @@ module SDL
     #     field :name, :string
     #   end
     def model(name, **options, &block)
-      @models << Model.new(*args, &block)
+      @models << Model.new(name, **options, &block)
     end
 
     # Sort all {Model} instances in order of dependency

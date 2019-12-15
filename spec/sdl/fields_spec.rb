@@ -29,8 +29,8 @@ RSpec.describe SDL::Fields do
     expect(fields.attributes).to eq([string, integer])
   end
 
-  it "selects enums" do
-    expect(fields.enums).to eq([enum])
+  it "selects enum" do
+    expect(fields.enum).to eq([enum])
   end
 
   it "selects associations" do
