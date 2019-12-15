@@ -1,5 +1,3 @@
-require "sdl/attachment"
-
 RSpec.describe SDL::Attachment::HasOne do
   subject(:attachment) {
     described_class.new(:logo, foo: :bar)

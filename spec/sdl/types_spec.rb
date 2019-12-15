@@ -1,5 +1,3 @@
-require "sdl/types"
-
 RSpec.describe SDL::Types do
   describe ".scalar" do
     it "is an array" do

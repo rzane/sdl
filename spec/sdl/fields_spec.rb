@@ -1,5 +1,3 @@
-require "sdl/fields"
-
 RSpec.describe SDL::Fields do
   let(:string) { SDL::Field.new(:string, :string) }
   let(:integer) { SDL::Field.new(:integer, :integer) }

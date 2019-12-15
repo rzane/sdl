@@ -68,7 +68,6 @@ module SDL
       case type
       when :integer then value.to_i
       when :float then value.to_f
-      when :decimal then value
       when :boolean then value.match?(/^true$/)
       else
         value

@@ -1,6 +1,3 @@
-require "sdl/types"
-require "sdl/parser"
-
 RSpec.describe SDL::Parser do
   subject(:parser) { SDL::Parser.new }
 

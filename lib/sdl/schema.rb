@@ -43,7 +43,7 @@ module SDL
       @models = TSort.tsort(each_node, each_child)
       @models
     rescue TSort::Cyclic
-      raise Error, "The schema contains a circular dependency."
+      raise CircularDependencyError, "The schema contains a circular dependency."
     end
   end
 end

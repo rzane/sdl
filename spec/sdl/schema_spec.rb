@@ -21,6 +21,22 @@ RSpec.describe SDL::Schema do
     expect(schema.models.length).to eq(1)
   end
 
+  describe "#find_model" do
+    it "finds a model by name" do
+      schema = SDL::Schema.new
+      schema.model :user
+      expect(schema.find_model(:user)).to be_a(SDL::Model)
+    end
+  end
+
+  describe "#find_enum" do
+    it "finds a enum by name" do
+      schema = SDL::Schema.new
+      schema.enum :status
+      expect(schema.find_enum(:status)).to be_a(SDL::Enum)
+    end
+  end
+
   describe "depsort!" do
     it "sorts dependent models" do
       schema = SDL::Schema.new do
@@ -41,6 +57,20 @@ RSpec.describe SDL::Schema do
       expect(schema.models.map(&:name)).to eq(["book", "chapter", "author"])
       schema.depsort!
       expect(schema.models.map(&:name)).to eq(["author", "book", "chapter"])
+    end
+
+    it "raises a CirclularDepedencyError when resolution is not possible" do
+      schema = SDL::Schema.new do
+        model :book do
+          belongs_to :author
+        end
+
+        model :author do
+          belongs_to :book
+        end
+      end
+
+      expect { schema.depsort! }.to raise_error(SDL::CircularDependencyError)
     end
   end
 end

@@ -1,5 +1,3 @@
-require "sdl/association"
-
 RSpec.describe SDL::Association::BelongsTo do
   subject(:association) {
     described_class.new(:user)

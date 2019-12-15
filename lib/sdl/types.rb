@@ -25,10 +25,6 @@ module SDL
     end
 
     module Queries
-      def type
-        raise NotImplementedError, __method__
-      end
-
       Types.all.each do |meth|
         define_method("#{meth}?") do
           type == meth
