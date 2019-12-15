@@ -1,4 +1,4 @@
-require "sdl/field_set"
+require "sdl/fields"
 require "sdl/field"
 require "sdl/association"
 require "sdl/attachment"
@@ -16,7 +16,7 @@ module SDL
     end
 
     def fields
-      FieldSet.new(@fields)
+      Fields.new(@fields)
     end
 
     def field(*args)

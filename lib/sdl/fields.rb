@@ -4,7 +4,7 @@ require "sdl/attachment"
 
 module SDL
   # A collection of fields
-  class FieldSet
+  class Fields
     include Enumerable
 
     def initialize(fields)
@@ -44,11 +44,11 @@ module SDL
     end
 
     def has_one_attached
-      grep Association::HasOne
+      grep Attachment::HasOne
     end
 
     def has_many_attached
-      grep Association::HasMany
+      grep Attachment::HasMany
     end
 
     Field::TYPES.each do |meth|
