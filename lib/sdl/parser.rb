@@ -6,6 +6,23 @@ require "active_support/core_ext/string/inflections"
 
 module SDL
   class Parser
+    # Parses a string into a {Field}, {Enum}, {Association} or {Attachment}.
+    #
+    # Supported Directives:
+    #
+    # * +id+
+    # * +string+
+    # * +string{limit}*
+    # * +text+
+    # * +text{limit}*
+    # * +integer+
+    # * +integer{limit}+
+    # * +binary+
+    # * +binary{limit}+
+    #
+    # @param value [String]
+    # @raise [ParseError] when a directive is not recognized
+    # @return [Field,Enum,Association,Attachment]
     def parse(value)
       name, *args = value.split(":")
       name = name.to_sym
