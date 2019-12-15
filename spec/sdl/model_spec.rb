@@ -15,8 +15,8 @@ RSpec.describe SDL::Model do
     expect(model.fields).to be_a(SDL::Fields)
   end
 
-  it "accepts a field" do
-    model.field :name, :string
+  it "accepts an attribute" do
+    model.attribute :name, :string
     expect(model.fields.first).to be_an(SDL::Field)
   end
 

@@ -26,7 +26,7 @@ module SDL
     #
     # @example
     #   model :user do
-    #     field :name, :string
+    #     attribute :name, :string
     #   end
     def model(name, **options, &block)
       @models << Model.new(name, **options, &block)

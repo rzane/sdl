@@ -21,7 +21,7 @@ module SDL
   # @example
   #   SDL.define do
   #     model :user do
-  #       field :name, :string
+  #       attribute :name, :string
   #     end
   #   end
   def self.define(&block)

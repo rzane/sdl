@@ -1,4 +1,4 @@
 model :user do
-  field :name, :string
-  field :age, :integer
+  attribute :name, :string
+  attribute :age, :integer
 end

@@ -40,9 +40,9 @@ module SDL
     #
     # @example
     #   model :user do
-    #     field :name, :string, required: true
+    #     attribute :name, :string, required: true
     #   end
-    def field(name, type, **options)
+    def attribute(name, type, **options)
       @fields << Field.new(*name, type, **options)
     end
 
@@ -124,15 +124,15 @@ module SDL
       @fields << Attachment::HasMany.new(name, **options)
     end
 
-    # Adds fields for +:created_at+ and +:updated_at+ to the model
+    # Adds attributes for +:created_at+ and +:updated_at+ to the model
     #
     # @example
     #   model :user do
     #     timestamps
     #   end
     def timestamps
-      field :created_at, :datetime, required: true
-      field :updated_at, :datetime, required: true
+      attribute :created_at, :datetime, required: true
+      attribute :updated_at, :datetime, required: true
     end
   end
 end
