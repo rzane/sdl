@@ -1,9 +1,10 @@
+require "sdl/field"
 require "sdl/types"
 
 module SDL
   # Base class for all attachment types
   # @abstract
-  class Attachment
+  class Attachment < Field
     include Types::Queries
 
     # The name of the field

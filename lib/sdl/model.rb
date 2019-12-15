@@ -28,7 +28,7 @@ module SDL
       Fields.new(@fields)
     end
 
-    # Adds a {Field} to the model
+    # Adds an {Attribute} to the model
     # @param name [Symbol]
     # @param type [Symbol]
     # @option options [Boolean] :required

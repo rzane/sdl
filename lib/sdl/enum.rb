@@ -2,7 +2,7 @@ require "sdl/types"
 
 module SDL
   # A field of a {Model} that has a predefined list of possible values
-  class Enum
+  class Enum < Field
     include Types::Queries
 
     # The name of the field

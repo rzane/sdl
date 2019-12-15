@@ -1,10 +1,11 @@
+require "sdl/field"
 require "sdl/types"
 require "active_support/core_ext/string/inflections"
 
 module SDL
   # Base class for all association types
   # @abstract
-  class Association
+  class Association < Field
     include Types::Queries
 
     # The name of the field
