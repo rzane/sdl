@@ -1,3 +1,4 @@
+require "sdl/types"
 require "sdl/field"
 require "sdl/association"
 require "sdl/attachment"
@@ -31,27 +32,7 @@ module SDL
       grep Attachment
     end
 
-    def belongs_to
-      grep Association::BelongsTo
-    end
-
-    def has_one
-      grep Association::HasOne
-    end
-
-    def has_many
-      grep Association::HasMany
-    end
-
-    def has_one_attached
-      grep Attachment::HasOne
-    end
-
-    def has_many_attached
-      grep Attachment::HasMany
-    end
-
-    Field::TYPES.each do |meth|
+    Types.all.each do |meth|
       define_method(meth) do
         select { |field| field.type == meth }
       end

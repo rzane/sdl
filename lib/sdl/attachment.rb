@@ -1,5 +1,9 @@
+require "sdl/types"
+
 module SDL
   class Attachment
+    include Types::Queries
+
     attr_reader :name
     attr_reader :options
 

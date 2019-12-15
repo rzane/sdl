@@ -1,6 +1,8 @@
+require "sdl/types"
+
 module SDL
   class Field
-    TYPES = %i(id string boolean integer float decimal date datetime text binary)
+    include Types::Queries
 
     attr_reader :name
     attr_reader :type

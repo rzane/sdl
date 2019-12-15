@@ -1,3 +1,4 @@
+require "sdl/types"
 require "sdl/field"
 require "sdl/association"
 require "sdl/association"
@@ -28,13 +29,13 @@ module SDL
 
     private
 
-    TYPES = /^(#{Field::TYPES.join("|")})$/
+    TYPES = /^(#{Types.scalar.join("|")})$/
     TYPES_WITH_LIMIT = /^(string|text|binary|integer)\{(\d+)\}$/
     TYPES_WITH_PRECISION = /^(decimal)\{(\d+)[,.-](\d+)\}$/
 
-    ATTACHMENT = /^(has_one_attached|has_many_attached)$/
-    ASSOCIATION = /^(belongs_to|has_one|has_many)$/
-    ASSOCIATION_WITH_NAME = /^(belongs_to|has_one|has_many)\{(.*)\}$/
+    ATTACHMENT = /^(#{Types.attachment.join("|")})$/
+    ASSOCIATION = /^(#{Types.association.join("|")})$/
+    ASSOCIATION_WITH_NAME = /^(#{Types.association.join("|")})\{(.*)\}$/
 
     DEFAULT = /^default\{(.*)\}$/
     REQUIRED = "required"

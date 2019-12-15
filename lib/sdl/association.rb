@@ -1,7 +1,10 @@
+require "sdl/types"
 require "active_support/core_ext/string/inflections"
 
 module SDL
   class Association
+    include Types::Queries
+
     attr_reader :name
     attr_reader :model_name
     attr_reader :options
