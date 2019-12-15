@@ -1,6 +1,9 @@
 require "sdl/version"
 
 module SDL
-  class Error < StandardError; end
-  # Your code goes here...
+  class Error < StandardError
+  end
+
+  class ParseError < Error
+  end
 end

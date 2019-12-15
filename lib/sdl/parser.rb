@@ -1,13 +1,10 @@
 require "sdl/types"
 require "sdl/field"
 require "sdl/association"
-require "sdl/association"
+require "sdl/attachment"
 require "active_support/core_ext/string/inflections"
 
 module SDL
-  class ParseError < StandardError
-  end
-
   class Parser
     def parse(value)
       name, *args = value.split(":")
@@ -30,17 +27,15 @@ module SDL
     private
 
     TYPES = /^(#{Types.scalar.join("|")})$/
-    TYPES_WITH_LIMIT = /^(string|text|binary|integer)\{(\d+)\}$/
-    TYPES_WITH_PRECISION = /^(decimal)\{(\d+)[,.-](\d+)\}$/
+    TYPES_WITH_LIMIT = /^(#{Types.scalar_with_limit.join("|")})\{(\d+)\}$/
+    TYPES_WITH_PRECISION = /^(#{Types.scalar_with_precision.join("|")})\{(\d+)[,.-](\d+)\}$/
 
-    ATTACHMENT = /^(#{Types.attachment.join("|")})$/
+    ATTACHMENT = /^(has_one|has_many)_attached$/
     ASSOCIATION = /^(#{Types.association.join("|")})$/
     ASSOCIATION_WITH_NAME = /^(#{Types.association.join("|")})\{(.*)\}$/
 
     DEFAULT = /^default\{(.*)\}$/
-    REQUIRED = "required"
-    UNIQUE = "unique"
-    INDEX = "index"
+    MODIFIERS = %w[required unique index foreign_key]
 
     def parse!(arg, opts)
       case arg
@@ -62,12 +57,8 @@ module SDL
         opts[:type] = Attachment.const_get($1.camelize)
       when DEFAULT
         opts[:default] = $1
-      when REQUIRED
-        opts[:required] = true
-      when UNIQUE
-        opts[:unique] = true
-      when INDEX
-        opts[:index] = true
+      when *MODIFIERS
+        opts[arg.to_sym] = true
       else
         raise ParseError, "Unrecognized parameter: #{arg}"
       end

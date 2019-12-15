@@ -1,69 +1,125 @@
+require "sdl/types"
 require "sdl/parser"
 
 RSpec.describe SDL::Parser do
   subject(:parser) { SDL::Parser.new }
 
-  it "parses a field with defaults" do
-    field = parser.parse("foo")
-    expect(field.name).to eq("foo")
-    expect(field.type).to eq(:string)
-    expect(field).not_to be_required
-    expect(field).not_to be_unique
+  it "parses with defaults" do
+    field = parser.parse("value")
+    expect(field.name).to eq("value")
+    expect(field.type).to be(:string)
     expect(field.default).to be_nil
     expect(field.limit).to be_nil
     expect(field.precision).to be_nil
     expect(field.scale).to be_nil
+    expect(field).not_to be_required
+    expect(field).not_to be_unique
+    expect(field).not_to be_index
   end
 
-  it "parses a string" do
-    field = parser.parse("foo:string")
-    expect(field.type).to eq(:string)
+  SDL::Types.scalar.each do |type|
+    it "parses #{type}" do
+      field = parser.parse("value:#{type}")
+      expect(field.type).to be(type)
+    end
   end
 
-  it "parses a string with a limit" do
-    field = parser.parse("foo:string{5}")
-    expect(field.type).to eq(:string)
-    expect(field.limit).to eq(5)
+  SDL::Types.scalar_with_limit.each do |type|
+    it "parses #{type} with a limit" do
+      field = parser.parse("value:#{type}{5}")
+      expect(field.type).to be(type)
+      expect(field.limit).to eq(5)
+    end
   end
 
-  it "parses a decimal" do
-    field = parser.parse("foo:decimal")
-    expect(field.type).to eq(:decimal)
+  SDL::Types.scalar_with_precision.each do |type|
+    {comma: ",", period: ".", hypen: "-"}.each do |sep_name, sep|
+      it "parses #{type} with precision and scale separated by #{sep_name}" do
+        field = parser.parse("value:#{type}{10#{sep}2}")
+        expect(field.type).to be(type)
+        expect(field.precision).to eq(10)
+        expect(field.scale).to eq(2)
+      end
+    end
   end
 
-  it "parses a with scale and precision" do
-    field = parser.parse("foo:decimal{10,2}")
-    expect(field.type).to eq(:decimal)
-    expect(field.precision).to eq(10)
-    expect(field.scale).to eq(2)
+  %i[unique required index].each do |modifier|
+    it "parses #{modifier}" do
+      expect(parser.parse("value:#{modifier}")).to send("be_#{modifier}")
+    end
   end
 
-  it "parses a required field" do
-    field = parser.parse("foo:required")
-    expect(field).to be_required
+  {string: "blah", integer: 1, float: 1.5, boolean: true}.each do |type, default|
+    it "parses default #{type}" do
+      field = parser.parse("value:#{type}:default{#{default}}")
+      expect(field.type).to be(type)
+      expect(field.default).to eq(default)
+    end
   end
 
-  it "parses a unique field" do
-    field = parser.parse("foo:unique")
-    expect(field).to be_unique
-  end
-
-  it "parses a default value" do
-    field = parser.parse("foo:default{blah}")
-    expect(field.default).to eq("blah")
-  end
-
-  it "parses an belongs_to association with a different model name" do
-    field = parser.parse("foo:belongs_to")
+  it "parses belongs_to" do
+    field = parser.parse("user:belongs_to")
     expect(field).to be_a(SDL::Association::BelongsTo)
-    expect(field.name).to eq("foo")
-    expect(field.model_name).to eq("foo")
-  end
-
-  it "parses an belongs_to association with a different model name" do
-    field = parser.parse("foo:belongs_to{user}")
-    expect(field).to be_a(SDL::Association::BelongsTo)
-    expect(field.name).to eq("foo")
+    expect(field.name).to eq("user")
     expect(field.model_name).to eq("user")
+  end
+
+  it "parses belongs_to with model name" do
+    field = parser.parse("user:belongs_to{person}")
+    expect(field).to be_a(SDL::Association::BelongsTo)
+    expect(field.name).to eq("user")
+    expect(field.model_name).to eq("person")
+  end
+
+  it "parses belongs_to with foreign_key" do
+    field = parser.parse("user:belongs_to:foreign_key")
+    expect(field).to be_foreign_key
+  end
+
+  it "parses has_one" do
+    field = parser.parse("user:has_one")
+    expect(field).to be_a(SDL::Association::HasOne)
+    expect(field.name).to eq("user")
+    expect(field.model_name).to eq("user")
+  end
+
+  it "parses has_one with model name" do
+    field = parser.parse("user:has_one{person}")
+    expect(field).to be_a(SDL::Association::HasOne)
+    expect(field.name).to eq("user")
+    expect(field.model_name).to eq("person")
+  end
+
+  it "parses has_many" do
+    field = parser.parse("users:has_many")
+    expect(field).to be_a(SDL::Association::HasMany)
+    expect(field.name).to eq("users")
+    expect(field.model_name).to eq("user")
+  end
+
+  it "parses has_many with model name" do
+    field = parser.parse("users:has_many{person}")
+    expect(field).to be_a(SDL::Association::HasMany)
+    expect(field.name).to eq("users")
+    expect(field.model_name).to eq("person")
+  end
+
+  it "parses has_one_attached" do
+    field = parser.parse("logo:has_one_attached")
+    expect(field).to be_a(SDL::Attachment::HasOne)
+    expect(field.name).to eq("logo")
+  end
+
+  it "parses has_many_attached" do
+    field = parser.parse("logos:has_many_attached")
+    expect(field).to be_a(SDL::Attachment::HasMany)
+    expect(field.name).to eq("logos")
+  end
+
+  it "raises an error when given an invalid directive" do
+    expect { parser.parse("value:trash") }.to raise_error(
+      SDL::ParseError,
+      "Unrecognized parameter: trash"
+    )
   end
 end
