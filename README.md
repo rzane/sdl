@@ -35,7 +35,7 @@ SDL.define do
   model :post do
     attribute :title, :string, limit: 120
     attribute :body, :text, nullable: true
-    enum :status, values: [:draft, :published]
+    enum :status, values: [:draft, :published], default: :draft
     belongs_to :user, foreign_key: true
     has_one_attached :image
     timestamps
