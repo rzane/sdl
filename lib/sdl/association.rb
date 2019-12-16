@@ -38,28 +38,12 @@ module SDL
 
   # Indicates a one-to-one connection with another {Model}
   class Association::BelongsTo < Association
+    include Field::ColumnOptions
+
     # The type of field
     # @return [Symbol]
     def type
       :belongs_to
-    end
-
-    # Is this field required?
-    # @return [Boolean]
-    def required?
-      options.fetch(:required, false)
-    end
-
-    # Is this field unique?
-    # @return [Boolean]
-    def unique?
-      options.fetch(:unique, false)
-    end
-
-    # Should this field have an index?
-    # @return [Boolean]
-    def index?
-      options.fetch(:index, false)
     end
 
     # Should this field have a foreign key?
