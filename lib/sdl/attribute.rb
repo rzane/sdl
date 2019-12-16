@@ -14,5 +14,11 @@ module SDL
       super(name, options)
       @type = type
     end
+
+    # The name of the column
+    # @return [Name]
+    def column_name
+      name
+    end
   end
 end

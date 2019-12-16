@@ -4,7 +4,7 @@ require "sdl/enum"
 require "sdl/attribute"
 require "sdl/association"
 require "sdl/attachment"
-require "active_support/core_ext/string/inflections"
+require "active_support/inflector/methods"
 
 module SDL
   # The parser takes a string and converts it to a {Field}.
@@ -103,12 +103,12 @@ module SDL
         opts[:type] = Enum
         opts[:values] = $1.split(SEPARATOR)
       when ASSOCIATION
-        opts[:type] = Association.const_get($1.camelize)
+        opts[:type] = Association.const_get(camelize($1))
       when ASSOCIATION_WITH_NAME
-        opts[:type] = Association.const_get($1.camelize)
+        opts[:type] = Association.const_get(camelize($1))
         opts[:model_name] = $2.to_sym
       when ATTACHMENT
-        opts[:type] = Attachment.const_get($1.camelize)
+        opts[:type] = Attachment.const_get(camelize($1))
       when DEFAULT
         opts[:default] = $1
       when *MODIFIERS
@@ -116,6 +116,10 @@ module SDL
       else
         raise ParseError, "Unrecognized parameter: #{arg}"
       end
+    end
+
+    def camelize(value)
+      ActiveSupport::Inflector.camelize(value)
     end
 
     def coerce(value, type)

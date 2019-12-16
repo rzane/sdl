@@ -1,4 +1,5 @@
 require "sdl/field"
+require "sdl/name"
 
 module SDL
   # A field of a {Model} that has a predefined list of possible values
@@ -12,15 +13,21 @@ module SDL
     end
 
     # A default value for this field
-    # @return [Object]
+    # @return [Name]
     def default
-      options[:default]&.to_s
+      Name.new(options[:default].to_s) if options[:default]
     end
 
     # The possible values for the enum
     # @return [Array<String>]
     def values
       options.fetch(:values, []).map(&:to_s)
+    end
+
+    # The name of the column
+    # @return [Name]
+    def column_name
+      name
     end
   end
 end

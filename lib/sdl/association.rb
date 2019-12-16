@@ -1,14 +1,14 @@
 require "sdl/field"
-require "active_support/core_ext/string/inflections"
+require "active_support/inflector/methods"
 
 module SDL
   # Base class for all association types
   # @abstract
   class Association < Field
     # The name of the associated model
-    # @return [String]
+    # @return [Name]
     def model_name
-      options.fetch(:model_name, name).to_s
+      Name.new(options.fetch(:model_name, name).to_s)
     end
   end
 
@@ -30,9 +30,13 @@ module SDL
     end
 
     # The name of the associated model
-    # @return [String]
+    # @return [Name]
     def model_name
-      options.fetch(:model_name) { name.singularize }.to_s
+      model_name = options.fetch(:model_name) do
+        ActiveSupport::Inflector.singularize(name.to_s)
+      end
+
+      Name.new(model_name.to_s)
     end
   end
 
@@ -50,6 +54,12 @@ module SDL
     # @return [Boolean]
     def foreign_key?
       options.fetch(:foreign_key, false)
+    end
+
+    # The name of the column
+    # @return [Name]
+    def column_name
+      Name.new("#{name}_id")
     end
   end
 end

@@ -1,3 +1,4 @@
+require "sdl/name"
 require "sdl/types"
 
 module SDL
@@ -5,7 +6,7 @@ module SDL
   # @abstract
   class Field
     # The name of the field
-    # @return [String]
+    # @return [Name]
     attr_reader :name
 
     # All options that were passed to the field
@@ -14,7 +15,7 @@ module SDL
 
     # @api private
     def initialize(name, **options)
-      @name = name.to_s
+      @name = Name.new(name.to_s)
       @options = options
     end
 
@@ -47,6 +48,19 @@ module SDL
     # @return [Boolean]
     def required?
       !nullable?
+    end
+
+    # The type of the field
+    # @abstract
+    # @return [Symbol]
+    def type
+      raise NotImplementedError, __method__
+    end
+
+    # The name of the type
+    # @return [Name]
+    def type_name
+      Name.new(type.to_s)
     end
 
     # @!method id?

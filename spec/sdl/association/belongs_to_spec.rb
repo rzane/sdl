@@ -5,14 +5,26 @@ RSpec.describe SDL::Association::BelongsTo do
 
   it "is an association" do
     expect(association).to be_an(SDL::Association)
+    expect(association).to be_association
   end
 
   it "has a name" do
     expect(association.name).to eq("user")
+    expect(association.name).to be_a(SDL::Name)
   end
 
   it "has a type" do
     expect(association.type).to eq(:belongs_to)
+  end
+
+  it "has a type_name" do
+    expect(association.type_name).to eq("belongs_to")
+    expect(association.type_name).to be_a(SDL::Name)
+  end
+
+  it "has a column_name" do
+    expect(association.column_name).to eq("user_id")
+    expect(association.column_name).to be_a(SDL::Name)
   end
 
   it "has an inferred model_name" do

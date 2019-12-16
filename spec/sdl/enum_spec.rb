@@ -1,8 +1,13 @@
 RSpec.describe SDL::Enum do
   subject(:enum) { build }
 
+  it "is an enum" do
+    expect(enum).to be_enum
+  end
+
   it "has a name" do
     expect(enum.name).to eq("value")
+    expect(enum.name).to be_a(SDL::Name)
   end
 
   it "has a type" do
@@ -34,6 +39,17 @@ RSpec.describe SDL::Enum do
   it "can have a default" do
     enum = build(default: :accepted)
     expect(enum.default).to eq("accepted")
+    expect(enum.default).to be_a(SDL::Name)
+  end
+
+  it "has a type_name" do
+    expect(enum.type_name).to eq("enum")
+    expect(enum.type_name).to be_a(SDL::Name)
+  end
+
+  it "has a column_name" do
+    expect(enum.column_name).to eq("value")
+    expect(enum.column_name).to be_a(SDL::Name)
   end
 
   def build(**opts)

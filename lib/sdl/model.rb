@@ -1,12 +1,13 @@
-require "sdl/attribute"
-require "sdl/enum"
 require "sdl/association"
 require "sdl/attachment"
+require "sdl/attribute"
+require "sdl/enum"
+require "sdl/name"
 
 module SDL
   class Model
     # Name of the model
-    # @return [String]
+    # @return [Name]
     attr_reader :name
 
     # All of the fields that have been registered
@@ -19,7 +20,7 @@ module SDL
 
     # @api private
     def initialize(name, fields: [], **options, &block)
-      @name = name.to_s
+      @name = Name.new(name.to_s)
       @fields = fields
       @options = options
       instance_eval(&block) if block_given?

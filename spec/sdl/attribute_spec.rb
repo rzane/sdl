@@ -1,12 +1,27 @@
 RSpec.describe SDL::Attribute do
   subject(:field) { build }
 
+  it "is an attribute" do
+    expect(field).to be_attribute
+  end
+
   it "has a name" do
     expect(field.name).to eq("value")
+    expect(field.name).to be_a(SDL::Name)
   end
 
   it "has a type" do
     expect(field.type).to be(:string)
+  end
+
+  it "has a type_name" do
+    expect(field.type_name).to eq("string")
+    expect(field.type_name).to be_a(SDL::Name)
+  end
+
+  it "has a column_name" do
+    expect(field.column_name).to eq("value")
+    expect(field.column_name).to be_a(SDL::Name)
   end
 
   it "accepts a default" do
