@@ -7,6 +7,49 @@ require "sdl/attachment"
 require "active_support/core_ext/string/inflections"
 
 module SDL
+  # The parser takes a string and converts it to a {Field}.
+  # A field is described using a series of directives separated
+  # by a colon.
+  #
+  # Examples:
+  #
+  # * `title:string{120}:required`
+  # * `body:text`
+  # * `status:enum{draft,published}`
+  # * `user:belongs_to:foreign_key`
+  # * `image:has_one_attached`
+  #
+  # Available directives:
+  #
+  # * `id`
+  # * `string`
+  # * `string{limit}`
+  # * `boolean`
+  # * `integer`
+  # * `integer{limit}`
+  # * `float`
+  # * `decimal`
+  # * `decimal{precision,scale}`
+  # * `date`
+  # * `datetime`
+  # * `text`
+  # * `text{limit}`
+  # * `binary`
+  # * `binary{limit}`
+  # * `enum{value,...}`
+  # * `belongs_to`
+  # * `belongs_to{model}`
+  # * `has_one`
+  # * `has_one{model}`
+  # * `has_many`
+  # * `has_many{model}`
+  # * `has_one_attached`
+  # * `has_many_attached`
+  # * `unique`
+  # * `required`
+  # * `index`
+  # * `foreign_key`
+  # * `default{value}`
   class Parser
     # Parses a string into a {Field}
     # @param value [String]

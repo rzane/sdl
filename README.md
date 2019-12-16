@@ -1,8 +1,9 @@
 # SDL
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sdl`. To experiment with that code, run `bin/console` for an interactive prompt.
+SDL is generic schema definition language.
 
-TODO: Delete this and the text above, and describe your gem
+Alone, it doesn't do anything useful. However, you might find it to be helpful
+for the purpose of code generation.
 
 ## Installation
 
@@ -20,19 +21,55 @@ Or install it yourself as:
 
     $ gem install sdl
 
-## Usage
+## Examples
 
-TODO: Write usage instructions here
+### Define a schema
 
-## Development
+```ruby
+SDL.define do
+  model :user do
+    attribute :email, :string, required: true, unique: true
+    has_many :posts
+    timestamps
+  end
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+  model :post do
+    attribute :title, :string, limit: 120, required: true
+    attribute :body, :text
+    enum :status, values: [:draft, :published]
+    belongs_to :user, foreign_key: true
+    has_one_attached :image
+    timestamps
+  end
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Load a schema from a file
+
+```ruby
+SDL.load_file "schema.rb"
+```
+
+### Parse command-line arguments
+
+```ruby
+SDL.parse "user", %w[
+  email:required:unique
+  posts:has_many
+]
+
+SDL.parse "post", %w[
+  title:string{120}:required
+  body:text
+  status:enum{draft,published}
+  user:belongs_to:foreign_key
+  image:has_one_attached
+]
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sdl. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rzane/sdl. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -40,4 +77,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the SDL project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/sdl/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the SDL project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/rzane/sdl/blob/master/CODE_OF_CONDUCT.md).
