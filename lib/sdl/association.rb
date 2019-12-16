@@ -1,5 +1,4 @@
 require "sdl/field"
-require "sdl/types"
 require "active_support/core_ext/string/inflections"
 
 module SDL
@@ -8,12 +7,8 @@ module SDL
   class Association < Field
     # The name of the associated model
     # @return [String]
-    attr_reader :model_name
-
-    # @api private
-    def initialize(name, model_name: name, **options)
-      super(name, options)
-      @model_name = model_name.to_s
+    def model_name
+      options.fetch(:model_name, name).to_s
     end
   end
 
@@ -28,36 +23,21 @@ module SDL
 
   # Indicates a one-to-many connection with another {Model}
   class Association::HasMany < Association
-    # @api private
-    def initialize(name, model_name: name.to_s.singularize, **options)
-      super(name, model_name: model_name, **options)
-    end
-
     # The type of field
     # @return [Symbol]
     def type
       :has_many
     end
+
+    # The name of the associated model
+    # @return [String]
+    def model_name
+      options.fetch(:model_name) { name.singularize }.to_s
+    end
   end
 
   # Indicates a one-to-one connection with another {Model}
   class Association::BelongsTo < Association
-    # @api private
-    def initialize(
-      name,
-      required: false,
-      unique: false,
-      index: false,
-      foreign_key: false,
-      **options
-    )
-      super(name, options)
-      @required = required
-      @unique = unique
-      @index = index
-      @foreign_key = foreign_key
-    end
-
     # The type of field
     # @return [Symbol]
     def type
@@ -67,25 +47,25 @@ module SDL
     # Is this field required?
     # @return [Boolean]
     def required?
-      @required
+      options.fetch(:required, false)
     end
 
     # Is this field unique?
     # @return [Boolean]
     def unique?
-      @unique
+      options.fetch(:unique, false)
     end
 
     # Should this field have an index?
     # @return [Boolean]
     def index?
-      @index
+      options.fetch(:index, false)
     end
 
     # Should this field have a foreign key?
     # @return [Boolean]
     def foreign_key?
-      @foreign_key
+      options.fetch(:foreign_key, false)
     end
   end
 end

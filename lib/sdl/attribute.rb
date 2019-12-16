@@ -1,5 +1,4 @@
 require "sdl/field"
-require "sdl/types"
 
 module SDL
   # An attribute of a {Model}
@@ -8,62 +7,52 @@ module SDL
     # @return [Symbol]
     attr_reader :type
 
+    # @api private
+    def initialize(name, type, **options)
+      super(name, options)
+      @type = type
+    end
+
     # A default value for this field
     # @return [Object]
-    attr_reader :default
+    def default
+      options[:default]
+    end
 
     # A limit for the field
     # @return [Integer]
-    attr_reader :limit
+    def limit
+      options[:limit]
+    end
 
     # A precision for the field
     # @return [Integer]
-    attr_reader :precision
+    def precision
+      options[:precision]
+    end
 
     # A scale for the field
     # @return [Integer]
-    attr_reader :scale
-
-    # @api private
-    def initialize(
-      name,
-      type,
-      required: false,
-      unique: false,
-      index: false,
-      default: nil,
-      limit: nil,
-      precision: nil,
-      scale: nil,
-      **options
-    )
-      super(name, options)
-      @type = type
-      @required = required
-      @unique = unique
-      @index = index
-      @default = default
-      @limit = limit
-      @precision = precision
-      @scale = scale
+    def scale
+      options[:scale]
     end
 
     # Is this field required?
     # @return [Boolean]
     def required?
-      @required
+      options.fetch(:required, false)
     end
 
     # Is this field unique?
     # @return [Boolean]
     def unique?
-      @unique
+      options.fetch(:unique, false)
     end
 
     # Should this field have an index?
     # @return [Boolean]
     def index?
-      @index
+      options.fetch(:index, false)
     end
   end
 end

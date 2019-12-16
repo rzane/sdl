@@ -1,5 +1,4 @@
 require "sdl/field"
-require "sdl/types"
 
 module SDL
   # Base class for all attachment types
