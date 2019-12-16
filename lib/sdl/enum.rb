@@ -11,6 +11,12 @@ module SDL
       :enum
     end
 
+    # A default value for this field
+    # @return [Object]
+    def default
+      options[:default]&.to_s
+    end
+
     # The possible values for the enum
     # @return [Array<String>]
     def values

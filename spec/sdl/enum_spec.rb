@@ -31,6 +31,11 @@ RSpec.describe SDL::Enum do
     expect(build(index: true)).to be_index
   end
 
+  it "can have a default" do
+    enum = build(default: :accepted)
+    expect(enum.default).to eq("accepted")
+  end
+
   def build(**opts)
     SDL::Enum.new(:value, **opts)
   end
