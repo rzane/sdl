@@ -1,4 +1,4 @@
-# SDL
+# SDL [![Build Status](https://travis-ci.org/rzane/sdl.svg?branch=master)](https://travis-ci.org/rzane/sdl)
 
 SDL stands for *S*chema *D*efinition *L*anguage. It's a generic system for describing models in a system.
 
