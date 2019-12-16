@@ -23,6 +23,7 @@ module SDL
     end
 
     inflect :table, %i[tableize]
+    inflect :plural, %i[pluralize]
     inflect :snake, %i[underscore]
     inflect :snakes, %i[underscore pluralize]
     inflect :scream, %i[underscore upcase]

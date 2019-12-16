@@ -7,6 +7,10 @@ RSpec.describe SDL::Name do
     specify { expect(name.table).to eq("email_addresses") }
   end
 
+  describe "#plural" do
+    specify { expect(name.plural).to eq("email_addresses") }
+  end
+
   describe "#param" do
     specify { expect(name.param).to eq("email-address") }
   end
