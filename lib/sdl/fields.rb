@@ -1,4 +1,5 @@
 require "sdl/types"
+require "sdl/field"
 require "sdl/attribute"
 require "sdl/enum"
 require "sdl/association"
@@ -93,8 +94,8 @@ module SDL
     # @!method has_many_attached
     #   Indicates that this is an {Attachment::HasMany}
     #   @return [Array<Attachment::HasMany>]
-    Types.all.each do |meth|
-      define_method(meth) do
+    SDL::TYPES.each do |meth|
+      define_method meth do
         select { |field| field.type == meth }
       end
     end

@@ -11,7 +11,7 @@ module SDL
     attr_reader :name
 
     # Any additional options
-    # @return [Hash{Symbol => Object}]
+    # @return [Hash]
     attr_reader :options
 
     # @api private

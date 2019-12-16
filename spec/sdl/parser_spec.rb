@@ -14,14 +14,14 @@ RSpec.describe SDL::Parser do
     expect(field).not_to be_index
   end
 
-  SDL::Types.scalar.each do |type|
+  SDL::SCALAR_TYPES.each do |type|
     it "parses #{type}" do
       field = parser.parse("value:#{type}")
       expect(field.type).to be(type)
     end
   end
 
-  SDL::Types.scalar_with_limit.each do |type|
+  %i[string text binary integer].each do |type|
     it "parses #{type} with a limit" do
       field = parser.parse("value:#{type}{5}")
       expect(field.type).to be(type)
@@ -29,14 +29,12 @@ RSpec.describe SDL::Parser do
     end
   end
 
-  SDL::Types.scalar_with_precision.each do |type|
-    {comma: ",", period: ".", hypen: "-"}.each do |sep_name, sep|
-      it "parses #{type} with precision and scale separated by #{sep_name}" do
-        field = parser.parse("value:#{type}{10#{sep}2}")
-        expect(field.type).to be(type)
-        expect(field.precision).to eq(10)
-        expect(field.scale).to eq(2)
-      end
+  {comma: ",", period: ".", hypen: "-"}.each do |sep_name, sep|
+    it "parses decimal with precision and scale separated by #{sep_name}" do
+      field = parser.parse("value:decimal{10#{sep}2}")
+      expect(field.type).to be(:decimal)
+      expect(field.precision).to eq(10)
+      expect(field.scale).to eq(2)
     end
   end
 

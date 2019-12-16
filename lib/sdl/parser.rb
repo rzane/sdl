@@ -1,4 +1,5 @@
 require "sdl/types"
+require "sdl/field"
 require "sdl/attribute"
 require "sdl/association"
 require "sdl/attachment"
@@ -30,13 +31,13 @@ module SDL
 
     private
 
-    TYPES = /^(#{Types.scalar.join("|")})$/
-    TYPES_WITH_LIMIT = /^(#{Types.scalar_with_limit.join("|")})\{(\d+)\}$/
-    TYPES_WITH_PRECISION = /^(#{Types.scalar_with_precision.join("|")})\{(\d+)[,.-](\d+)\}$/
+    TYPES = /^(#{SCALAR_TYPES.join("|")})$/
+    TYPES_WITH_LIMIT = /^(string|text|binary|integer)\{(\d+)\}$/
+    TYPES_WITH_PRECISION = /^(decimal)\{(\d+)[,.-](\d+)\}$/
 
     ATTACHMENT = /^(has_one|has_many)_attached$/
-    ASSOCIATION = /^(#{Types.association.join("|")})$/
-    ASSOCIATION_WITH_NAME = /^(#{Types.association.join("|")})\{(.*)\}$/
+    ASSOCIATION = /^(belongs_to|has_one|has_many)$/
+    ASSOCIATION_WITH_NAME = /^(belongs_to|has_one|has_many)\{(.*)\}$/
 
     DEFAULT = /^default\{(.*)\}$/
     MODIFIERS = %w[required unique index foreign_key]

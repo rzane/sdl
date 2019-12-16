@@ -3,6 +3,7 @@ require "sdl/parser"
 require "sdl/schema"
 
 module SDL
+
   # A base class for all errors
   class Error < StandardError
   end
