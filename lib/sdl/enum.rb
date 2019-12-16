@@ -19,7 +19,7 @@ module SDL
     end
 
     # The possible values for the enum
-    # @return [Array<String>]
+    # @return [Array<Name>]
     def values
       options.fetch(:values, []).map { |value| Name.new(value.to_s) }
     end
