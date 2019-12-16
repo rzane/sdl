@@ -1,4 +1,4 @@
-# SDL [![Build Status](https://travis-ci.org/rzane/sdl.svg?branch=master)](https://travis-ci.org/rzane/sdl)
+# SDL [![Build Status](https://travis-ci.org/rzane/sdl.svg?branch=master)](https://travis-ci.org/rzane/sdl) [![Coverage Status](https://coveralls.io/repos/github/rzane/sdl/badge.svg?branch=master)](https://coveralls.io/github/rzane/sdl?branch=master)
 
 SDL stands for *S*chema *D*efinition *L*anguage. It's a language for describing models in a system.
 
