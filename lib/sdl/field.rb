@@ -36,6 +36,18 @@ module SDL
       has_one? || has_many? || belongs_to?
     end
 
+    # Can this field be null?
+    # @return [Boolean]
+    def nullable?
+      options.fetch(:nullable, false)
+    end
+
+    # The opposite of {#nullable?}
+    # @return [Boolean]
+    def required?
+      !nullable?
+    end
+
     # @!method id?
     #   Indicates that this is an {Attribute} whose type is `:id`
     #   @return [Boolean]
@@ -91,12 +103,6 @@ module SDL
     end
 
     module ColumnOptions
-      # Is this field required?
-      # @return [Boolean]
-      def required?
-        options.fetch(:required, false)
-      end
-
       # A default value for this field
       # @return [Object]
       def default

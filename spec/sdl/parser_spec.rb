@@ -9,7 +9,7 @@ RSpec.describe SDL::Parser do
     expect(field.limit).to be_nil
     expect(field.precision).to be_nil
     expect(field.scale).to be_nil
-    expect(field).not_to be_required
+    expect(field).not_to be_nullable
     expect(field).not_to be_unique
     expect(field).not_to be_index
   end
@@ -38,7 +38,7 @@ RSpec.describe SDL::Parser do
     end
   end
 
-  %i[unique required index].each do |modifier|
+  %i[unique nullable index].each do |modifier|
     it "parses #{modifier}" do
       expect(parser.parse("value:#{modifier}")).to send("be_#{modifier}")
     end

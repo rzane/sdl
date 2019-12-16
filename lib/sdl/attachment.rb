@@ -13,12 +13,6 @@ module SDL
     def type
       :has_one_attached
     end
-
-    # Is this field required?
-    # @return [Boolean]
-    def required?
-      options.fetch(:required, false)
-    end
   end
 
   # A list of files that are attached to a {Model}
@@ -27,12 +21,6 @@ module SDL
     # @return [Symbol]
     def type
       :has_many_attached
-    end
-
-    # Is this field required?
-    # @return [Boolean]
-    def required?
-      true
     end
   end
 end

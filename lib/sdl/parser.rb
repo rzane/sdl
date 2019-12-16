@@ -46,7 +46,7 @@ module SDL
   # * `has_one_attached`
   # * `has_many_attached`
   # * `unique`
-  # * `required`
+  # * `nullable`
   # * `index`
   # * `foreign_key`
   # * `default{value}`
@@ -86,7 +86,7 @@ module SDL
     ASSOCIATION_WITH_NAME = /^(belongs_to|has_one|has_many)\{(.*)\}$/
 
     DEFAULT = /^default\{(.*)\}$/
-    MODIFIERS = %w[required unique index foreign_key]
+    MODIFIERS = %w[nullable unique index foreign_key]
 
     def parse!(arg, opts)
       case arg
