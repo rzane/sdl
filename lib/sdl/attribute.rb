@@ -4,8 +4,6 @@ require "sdl/types"
 module SDL
   # An attribute of a {Model}
   class Attribute < Field
-    include Types::Queries
-
     # The name of the field
     # @return [String]
     attr_reader :name

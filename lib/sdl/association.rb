@@ -6,8 +6,6 @@ module SDL
   # Base class for all association types
   # @abstract
   class Association < Field
-    include Types::Queries
-
     # The name of the field
     # @return [String]
     attr_reader :name

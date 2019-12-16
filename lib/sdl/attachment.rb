@@ -5,8 +5,6 @@ module SDL
   # Base class for all attachment types
   # @abstract
   class Attachment < Field
-    include Types::Queries
-
     # The name of the field
     # @return [String]
     attr_reader :name
