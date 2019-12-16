@@ -13,8 +13,8 @@ module SDL
   #
   # Examples:
   #
-  # * `title:string{120}:required`
-  # * `body:text`
+  # * `title:string{120}`
+  # * `body:text:nullable`
   # * `status:enum{draft,published}`
   # * `user:belongs_to:foreign_key`
   # * `image:has_one_attached`

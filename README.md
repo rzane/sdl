@@ -1,9 +1,8 @@
 # SDL
 
-SDL is generic schema definition language.
+SDL stands for *S*chema *D*efinition *L*anguage. It's a generic system for describing models in a system.
 
-Alone, it doesn't do anything useful. However, you might find it to be helpful
-for the purpose of code generation.
+Alone, it doesn't do anything useful. However, you might find it to be helpful for the purpose of code generation.
 
 ## Installation
 
@@ -47,6 +46,13 @@ end
 ### Load a schema from a file
 
 ```ruby
+# schema.rb
+model :user do
+  attribute :name, :string
+end
+```
+
+```ruby
 SDL.load_file "schema.rb"
 ```
 
@@ -54,13 +60,13 @@ SDL.load_file "schema.rb"
 
 ```ruby
 SDL.parse "user", %w[
-  email:required:unique
+  email:unique
   posts:has_many
 ]
 
 SDL.parse "post", %w[
-  title:string{120}:required
-  body:text
+  title:string{120}
+  body:text:nullable
   status:enum{draft,published}
   user:belongs_to:foreign_key
   image:has_one_attached
