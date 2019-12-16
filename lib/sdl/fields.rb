@@ -23,7 +23,7 @@ module SDL
     end
 
     # Iterate over all fields
-    # @yieldparam [Field]
+    # @yield [Field]
     def each(&block)
       @fields.each(&block)
     end
@@ -47,34 +47,34 @@ module SDL
     end
 
     # @!method id
-    #   Get all instances of {Attribute} whose type is +:id+
+    #   Get all instances of {Attribute} whose type is `:id`
     #   @return [Array<Attribute>]
     # @!method string
-    #   Get all instances of {Attribute} whose type is +:string+
+    #   Get all instances of {Attribute} whose type is `:string`
     #   @return [Array<Attribute>]
     # @!method boolean
-    #   Get all instances of {Attribute} whose type is +:boolean+
+    #   Get all instances of {Attribute} whose type is `:boolean`
     #   @return [Array<Attribute>]
     # @!method integer
-    #   Get all instances of {Attribute} whose type is +:integer+
+    #   Get all instances of {Attribute} whose type is `:integer`
     #   @return [Array<Attribute>]
     # @!method float
-    #   Get all instances of {Attribute} whose type is +:float+
+    #   Get all instances of {Attribute} whose type is `:float`
     #   @return [Array<Attribute>]
     # @!method decimal
-    #   Get all instances of {Attribute} whose type is +:decimal+
+    #   Get all instances of {Attribute} whose type is `:decimal`
     #   @return [Array<Attribute>]
     # @!method date
-    #   Get all instances of {Attribute} whose type is +:date+
+    #   Get all instances of {Attribute} whose type is `:date`
     #   @return [Array<Attribute>]
     # @!method datetime
-    #   Get all instances of {Attribute} whose type is +:datetime+
+    #   Get all instances of {Attribute} whose type is `:datetime`
     #   @return [Array<Attribute>]
     # @!method text
-    #   Get all instances of {Attribute} whose type is +:text+
+    #   Get all instances of {Attribute} whose type is `:text`
     #   @return [Array<Attribute>]
     # @!method binary
-    #   Get all instances of {Attribute} whose type is +:binary+
+    #   Get all instances of {Attribute} whose type is `:binary`
     #   @return [Array<Attribute>]
     # @!method enum
     #   Get all instances of {Enum}
@@ -94,7 +94,7 @@ module SDL
     # @!method has_many_attached
     #   Indicates that this is an {Attachment::HasMany}
     #   @return [Array<Attachment::HasMany>]
-    SDL::TYPES.each do |meth|
+    TYPES.each do |meth|
       define_method meth do
         select { |field| field.type == meth }
       end

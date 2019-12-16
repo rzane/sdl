@@ -2,6 +2,7 @@ require "sdl/types"
 
 module SDL
   # A base class for all fields of a model
+  # @abstract
   class Field
     # The name of the field
     # @return [String]
@@ -11,40 +12,41 @@ module SDL
     # @return [Hash]
     attr_reader :options
 
+    # @api private
     def initialize(name, **options)
       @name = name.to_s
       @options = options
     end
 
     # @!method id?
-    #   Indicates that this is an {Attribute} whose type is +:id+
+    #   Indicates that this is an {Attribute} whose type is `:id`
     #   @return [Boolean]
     # @!method string?
-    #   Indicates that this is an {Attribute} whose type is +:string+
+    #   Indicates that this is an {Attribute} whose type is `:string`
     #   @return [Boolean]
     # @!method boolean?
-    #   Indicates that this is an {Attribute} whose type is +:boolean+
+    #   Indicates that this is an {Attribute} whose type is `:boolean`
     #   @return [Boolean]
     # @!method integer?
-    #   Indicates that this is an {Attribute} whose type is +:integer+
+    #   Indicates that this is an {Attribute} whose type is `:integer`
     #   @return [Boolean]
     # @!method float?
-    #   Indicates that this is an {Attribute} whose type is +:float+
+    #   Indicates that this is an {Attribute} whose type is `:float`
     #   @return [Boolean]
     # @!method decimal?
-    #   Indicates that this is an {Attribute} whose type is +:decimal+
+    #   Indicates that this is an {Attribute} whose type is `:decimal`
     #   @return [Boolean]
     # @!method date?
-    #   Indicates that this is an {Attribute} whose type is +:date+
+    #   Indicates that this is an {Attribute} whose type is `:date`
     #   @return [Boolean]
     # @!method datetime?
-    #   Indicates that this is an {Attribute} whose type is +:datetime+
+    #   Indicates that this is an {Attribute} whose type is `:datetime`
     #   @return [Boolean]
     # @!method text?
-    #   Indicates that this is an {Attribute} whose type is +:text+
+    #   Indicates that this is an {Attribute} whose type is `:text`
     #   @return [Boolean]
     # @!method binary?
-    #   Indicates that this is an {Attribute} whose type is +:binary+
+    #   Indicates that this is an {Attribute} whose type is `:binary`
     #   @return [Boolean]
     # @!method enum?
     #   Indicates that this is an {Enum}
@@ -64,7 +66,7 @@ module SDL
     # @!method has_many_attached?
     #   Indicates that this is an {Attachment::HasMany}
     #   @return [Boolean]
-    SDL::TYPES.each do |meth|
+    TYPES.each do |meth|
       define_method "#{meth}?" do
         type == meth
       end

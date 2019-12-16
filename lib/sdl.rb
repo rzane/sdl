@@ -18,6 +18,7 @@ module SDL
 
   # Defines a new schema. The block will be evaluated in the
   # context of a {Schema}
+  # @return [Schema]
   #
   # @example
   #   SDL.define do
@@ -31,6 +32,7 @@ module SDL
 
   # Loads a schema from a file. The contents of the file
   # will be evaluated in the context of a {Schema}
+  # @return [Schema]
   #
   # @example
   #   SDL.load_file("schema.rb")
@@ -42,6 +44,7 @@ module SDL
 
   # Constructs a model from command-line arguments
   # @raise [ParseError]
+  # @return [Model]
   # @see Parser
   #
   # @example
