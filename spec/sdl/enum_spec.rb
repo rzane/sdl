@@ -22,6 +22,7 @@ RSpec.describe SDL::Enum do
   it "has values" do
     enum = build(values: [:accepted, :rejected])
     expect(enum.values).to eq(["accepted", "rejected"])
+    expect(enum.values.first).to be_a(SDL::Name)
   end
 
   it "can be required" do

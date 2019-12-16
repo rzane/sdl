@@ -21,7 +21,7 @@ module SDL
     # The possible values for the enum
     # @return [Array<String>]
     def values
-      options.fetch(:values, []).map(&:to_s)
+      options.fetch(:values, []).map { |value| Name.new(value.to_s) }
     end
 
     # The name of the column
