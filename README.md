@@ -27,14 +27,14 @@ Or install it yourself as:
 ```ruby
 SDL.define do
   model :user do
-    attribute :email, :string, required: true, unique: true
+    attribute :email, :string, unique: true
     has_many :posts
     timestamps
   end
 
   model :post do
-    attribute :title, :string, limit: 120, required: true
-    attribute :body, :text
+    attribute :title, :string, limit: 120
+    attribute :body, :text, nullable: true
     enum :status, values: [:draft, :published]
     belongs_to :user, foreign_key: true
     has_one_attached :image
