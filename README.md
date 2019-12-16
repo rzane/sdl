@@ -1,8 +1,8 @@
 # SDL [![Build Status](https://travis-ci.org/rzane/sdl.svg?branch=master)](https://travis-ci.org/rzane/sdl)
 
-SDL stands for *S*chema *D*efinition *L*anguage. It's a generic system for describing models in a system.
+SDL stands for *S*chema *D*efinition *L*anguage. It's a language for describing models in a system.
 
-Alone, it doesn't do anything useful. However, you might find it to be helpful for the purpose of code generation.
+Alone, it doesn't do a whole lot. However, you might find helpful for building [code generators](https://github.com/rzane/geny).
 
 ## Installation
 
