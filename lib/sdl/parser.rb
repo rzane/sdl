@@ -1,5 +1,6 @@
 require "sdl/types"
 require "sdl/field"
+require "sdl/enum"
 require "sdl/attribute"
 require "sdl/association"
 require "sdl/attachment"
@@ -31,10 +32,12 @@ module SDL
 
     private
 
+    SEPARATOR = /[,.-]/
     TYPES = /^(#{SCALAR_TYPES.join("|")})$/
     TYPES_WITH_LIMIT = /^(string|text|binary|integer)\{(\d+)\}$/
-    TYPES_WITH_PRECISION = /^(decimal)\{(\d+)[,.-](\d+)\}$/
+    TYPES_WITH_PRECISION = /^(decimal)\{(\d+)#{SEPARATOR}(\d+)\}$/
 
+    ENUM = /^enum\{(.*)\}$/
     ATTACHMENT = /^(has_one|has_many)_attached$/
     ASSOCIATION = /^(belongs_to|has_one|has_many)$/
     ASSOCIATION_WITH_NAME = /^(belongs_to|has_one|has_many)\{(.*)\}$/
@@ -53,6 +56,9 @@ module SDL
         opts[:type] = $1.to_sym
         opts[:precision] = $2.to_i
         opts[:scale] = $3.to_i
+      when ENUM
+        opts[:type] = Enum
+        opts[:values] = $1.split(SEPARATOR)
       when ASSOCIATION
         opts[:type] = Association.const_get($1.camelize)
       when ASSOCIATION_WITH_NAME

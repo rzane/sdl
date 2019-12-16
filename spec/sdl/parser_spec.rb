@@ -52,6 +52,15 @@ RSpec.describe SDL::Parser do
     end
   end
 
+  {comma: ",", period: ".", hypen: "-"}.each do |sep_name, sep|
+    it "parses enum with values separated by #{sep_name}" do
+      field = parser.parse("status:enum{accepted#{sep}rejected}")
+      expect(field).to be_a(SDL::Enum)
+      expect(field.name).to eq("status")
+      expect(field.values).to eq(["accepted", "rejected"])
+    end
+  end
+
   it "parses belongs_to" do
     field = parser.parse("user:belongs_to")
     expect(field).to be_a(SDL::Association::BelongsTo)
