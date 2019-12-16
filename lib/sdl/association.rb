@@ -19,6 +19,12 @@ module SDL
     def type
       :has_one
     end
+
+    # Is this field required?
+    # @return [Boolean]
+    def required?
+      options.fetch(:required, false)
+    end
   end
 
   # Indicates a one-to-many connection with another {Model}
@@ -33,6 +39,12 @@ module SDL
     # @return [String]
     def model_name
       options.fetch(:model_name) { name.singularize }.to_s
+    end
+
+    # Is this field required?
+    # @return [Boolean]
+    def required?
+      true
     end
   end
 
