@@ -5,19 +5,6 @@ module SDL
   # Base class for all attachment types
   # @abstract
   class Attachment < Field
-    # The name of the field
-    # @return [String]
-    attr_reader :name
-
-    # Any additional options
-    # @return [Hash{Symbol => Object}]
-    attr_reader :options
-
-    # @api private
-    def initialize(name, **options)
-      @name = name.to_s
-      @options = options
-    end
   end
 
   # A file that is attached to a {Model}

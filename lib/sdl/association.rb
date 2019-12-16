@@ -6,23 +6,14 @@ module SDL
   # Base class for all association types
   # @abstract
   class Association < Field
-    # The name of the field
-    # @return [String]
-    attr_reader :name
-
     # The name of the associated model
     # @return [String]
     attr_reader :model_name
 
-    # Any additional options
-    # @return [Hash{Symbol => Object}]
-    attr_reader :options
-
     # @api private
     def initialize(name, model_name: name, **options)
-      @name = name.to_s
+      super(name, options)
       @model_name = model_name.to_s
-      @options = options
     end
   end
 
@@ -60,7 +51,7 @@ module SDL
       foreign_key: false,
       **options
     )
-      super(name, **options)
+      super(name, options)
       @required = required
       @unique = unique
       @index = index

@@ -3,10 +3,6 @@ require "sdl/types"
 module SDL
   # A field of a {Model} that has a predefined list of possible values
   class Enum < Field
-    # The name of the field
-    # @return [String]
-    attr_reader :name
-
     # The possible values for the enum
     # @return [Array<String>]
     attr_reader :values
@@ -14,10 +10,6 @@ module SDL
     # A default value for the enum
     # @return [Object]
     attr_reader :default
-
-    # Any additional options
-    # @return [Hash{Symbol => Object}]
-    attr_reader :options
 
     # @api private
     def initialize(
@@ -29,13 +21,12 @@ module SDL
       default: nil,
       **options
     )
-      @name = name.to_s
+      super(name, options)
       @values = values.map(&:to_s)
       @required = required
       @unique = unique
       @index = index
       @default = default
-      @options = options
     end
 
     # The type of field
