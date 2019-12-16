@@ -28,7 +28,7 @@ module SDL
     # Adds an {Attribute} to the model
     # @param name [Symbol]
     # @param type [Symbol]
-    # @option options [Boolean] :required
+    # @option options [Boolean] :nullable
     # @option options [Boolean] :unique
     # @option options [Object] :default
     # @option options [Integer] :limit
@@ -46,7 +46,7 @@ module SDL
     # Adds an {Enum} to the model
     # @param name [Symbol]
     # @option options [Array<Symbol>] :values
-    # @option options [Boolean] :required
+    # @option options [Boolean] :nullable
     # @option options [Boolean] :unique
     # @option options [Object] :default
     #
@@ -61,7 +61,7 @@ module SDL
     # Adds an {Association::BelongsTo} to the model
     # @param name [Symbol]
     # @option options [Symbol] :model_name
-    # @option options [Boolean] :required
+    # @option options [Boolean] :nullable
     # @option options [Boolean] :unique
     # @option options [Boolean] :foreign_key
     #
@@ -76,6 +76,7 @@ module SDL
     # Adds an {Association::HasOne} to the model
     # @param name [Symbol]
     # @option options [Symbol] :model_name
+    # @option options [Boolean] :nullable
     #
     # @example
     #   model :user do
@@ -99,7 +100,7 @@ module SDL
 
     # Adds an {Attachment::HasOne} to the model
     # @param name [Symbol]
-    # @option options [Hash]
+    # @option options [Symbol] :nullable
     #
     # @example
     #   model :user do

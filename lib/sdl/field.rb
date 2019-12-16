@@ -36,13 +36,14 @@ module SDL
       has_one? || has_many? || belongs_to?
     end
 
-    # Can this field be null?
+    # Can this field be null? By default, this is `false`. But, it can
+    # be overridden by passing `nullable: true` to a field.
     # @return [Boolean]
     def nullable?
       options.fetch(:nullable, false)
     end
 
-    # The opposite of {#nullable?}
+    # The opposite of {#nullable?}. All fields are required by default
     # @return [Boolean]
     def required?
       !nullable?
