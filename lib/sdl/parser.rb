@@ -4,7 +4,7 @@ require "sdl/enum"
 require "sdl/attribute"
 require "sdl/association"
 require "sdl/attachment"
-require "active_support/inflector/methods"
+require "active_support/inflector"
 
 module SDL
   # The parser takes a string and converts it to a {Field}.

@@ -1,4 +1,4 @@
-require "active_support/inflector/methods"
+require "active_support/inflector"
 
 module SDL
   # An extension of a string that will format a name

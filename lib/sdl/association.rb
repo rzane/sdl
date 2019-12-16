@@ -1,5 +1,5 @@
 require "sdl/field"
-require "active_support/inflector/methods"
+require "active_support/inflector"
 
 module SDL
   # Base class for all association types
