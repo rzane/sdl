@@ -37,7 +37,7 @@ module SDL
     def depsort!
       each_node = models.method(:each)
       each_child = lambda do |model, &block|
-        belongs_to = model.fields.belongs_to.map(&:model_name)
+        belongs_to = model.belongs_to_fields.map(&:model_name)
         children = models.select { |m| belongs_to.include?(m.name) }
         children.each(&block)
       end

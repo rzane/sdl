@@ -1,4 +1,3 @@
-require "sdl/fields"
 require "sdl/attribute"
 require "sdl/enum"
 require "sdl/association"
@@ -10,6 +9,10 @@ module SDL
     # @return [String]
     attr_reader :name
 
+    # All of the fields that have been registered
+    # @return [Array<Field>]
+    attr_reader :fields
+
     # Any additional options
     # @return [Hash]
     attr_reader :options
@@ -20,12 +23,6 @@ module SDL
       @fields = fields
       @options = options
       instance_eval(&block) if block_given?
-    end
-
-    # All of the fields that have been registered
-    # @return [Fields]
-    def fields
-      Fields.new(@fields)
     end
 
     # Adds an {Attribute} to the model
@@ -133,6 +130,78 @@ module SDL
     def timestamps
       attribute :created_at, :datetime, required: true
       attribute :updated_at, :datetime, required: true
+    end
+
+    # Get all {Attribute} fields
+    # @return [Array<Attribute>]
+    def attribute_fields
+      fields.grep Attribute
+    end
+
+    # Get all {Association} fields
+    # @return [Array<Association>]
+    def association_fields
+      fields.grep Association
+    end
+
+    # Get all {Attachment} fields
+    # @return [Array<Attachment>]
+    def attachment_fields
+      fields.grep Attachment
+    end
+
+    # @!method id_fields
+    #   Get all {Attribute} fields whose type is `:id`
+    #   @return [Array<Attribute>]
+    # @!method string_fields
+    #   Get all {Attribute} fields whose type is `:string`
+    #   @return [Array<Attribute>]
+    # @!method boolean_fields
+    #   Get all {Attribute} fields whose type is `:boolean`
+    #   @return [Array<Attribute>]
+    # @!method integer_fields
+    #   Get all {Attribute} fields whose type is `:integer`
+    #   @return [Array<Attribute>]
+    # @!method float_fields
+    #   Get all {Attribute} fields whose type is `:float`
+    #   @return [Array<Attribute>]
+    # @!method decimal_fields
+    #   Get all {Attribute} fields whose type is `:decimal`
+    #   @return [Array<Attribute>]
+    # @!method date_fields
+    #   Get all {Attribute} fields whose type is `:date`
+    #   @return [Array<Attribute>]
+    # @!method datetime_fields
+    #   Get all {Attribute} fields whose type is `:datetime`
+    #   @return [Array<Attribute>]
+    # @!method text_fields
+    #   Get all {Attribute} fields whose type is `:text`
+    #   @return [Array<Attribute>]
+    # @!method binary_fields
+    #   Get all {Attribute} fields whose type is `:binary`
+    #   @return [Array<Attribute>]
+    # @!method enum_fields
+    #   Get all {Enum} fields
+    #   @return [Array<Enum>]
+    # @!method belongs_to_fields
+    #   Get all {Association::BelongsTo} fields
+    #   @return [Array<Association::BelongsTo>]
+    # @!method has_one_fields
+    #   Get all {Association::HasOne} fields
+    #   @return [Array<Assocation::HasOne>]
+    # @!method has_many_fields
+    #   Get all {Association::HasMany} fields
+    #   @return [Array<Association::HasMany>]
+    # @!method has_one_attached_fields
+    #   Get all {Attachment::HasOne} fields
+    #   @return [Array<Attachment::HasOne>]
+    # @!method has_many_attached_fields
+    #   Get all {Attachment::HasMany} fields
+    #   @return [Array<Attachment::HasMany>]
+    TYPES.each do |meth|
+      define_method "#{meth}_fields" do
+        fields.select { |field| field.type == meth }
+      end
     end
   end
 end

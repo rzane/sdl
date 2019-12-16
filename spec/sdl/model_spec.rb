@@ -12,7 +12,7 @@ RSpec.describe SDL::Model do
   end
 
   it "has fields" do
-    expect(model.fields).to be_a(SDL::Fields)
+    expect(model.fields).to eq([])
   end
 
   it "accepts an attribute" do
@@ -54,5 +54,62 @@ RSpec.describe SDL::Model do
     model.timestamps
     expect(model.fields[0].name).to eq("created_at")
     expect(model.fields[1].name).to eq("updated_at")
+  end
+
+  describe "field collections" do
+    before do
+      model.attribute :string, :string
+      model.attribute :integer, :integer
+      model.enum :enum
+      model.belongs_to :belongs_to
+      model.has_one :has_one
+      model.has_many :has_many
+      model.has_one_attached :has_one_attached
+      model.has_many_attached :has_many_attached
+    end
+
+    it "selects attributes" do
+      expect(model.attribute_fields.map(&:name)).to eq(["string", "integer"])
+    end
+
+    it "selects enum" do
+      expect(model.enum_fields.map(&:name)).to eq(["enum"])
+    end
+
+    it "selects associations" do
+      expect(model.association_fields.map(&:name)).to eq(["belongs_to", "has_one", "has_many"])
+    end
+
+    it "selects attachments" do
+      expect(model.attachment_fields.map(&:name)).to eq(["has_one_attached", "has_many_attached"])
+    end
+
+    it "selects belongs_to" do
+      expect(model.belongs_to_fields.map(&:name)).to eq(["belongs_to"])
+    end
+
+    it "selects has_one" do
+      expect(model.has_one_fields.map(&:name)).to eq(["has_one"])
+    end
+
+    it "selects has_many" do
+      expect(model.has_many_fields.map(&:name)).to eq(["has_many"])
+    end
+
+    it "selects has_one_attached" do
+      expect(model.has_one_attached_fields.map(&:name)).to eq(["has_one_attached"])
+    end
+
+    it "selects has_many_attached" do
+      expect(model.has_many_attached_fields.map(&:name)).to eq(["has_many_attached"])
+    end
+
+    it "selects string" do
+      expect(model.string_fields.map(&:name)).to eq(["string"])
+    end
+
+    it "selects integer" do
+      expect(model.integer_fields.map(&:name)).to eq(["integer"])
+    end
   end
 end

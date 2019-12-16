@@ -18,6 +18,24 @@ module SDL
       @options = options
     end
 
+    # Indicates that this is an {Attribute}
+    # @return [Boolean]
+    def attribute?
+      !enum? && !association? && !attachment?
+    end
+
+    # Indicates that this is an {Attachment}
+    # @return [Boolean]
+    def attachment?
+      has_one_attached? || has_many_attached?
+    end
+
+    # Indicates that this is an {Association}
+    # @return [Boolean]
+    def association?
+      has_one? || has_many? || belongs_to?
+    end
+
     # @!method id?
     #   Indicates that this is an {Attribute} whose type is `:id`
     #   @return [Boolean]
