@@ -67,9 +67,9 @@ module SDL
       opts[:default] = coerce(opts[:default], type) if opts[:default]
 
       if type.is_a?(Symbol)
-        Attribute.new(name, type, opts)
+        Attribute.new(name, type, **opts)
       else
-        type.new(name, opts)
+        type.new(name, **opts)
       end
     end
 

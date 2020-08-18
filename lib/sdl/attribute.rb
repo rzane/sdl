@@ -11,7 +11,7 @@ module SDL
 
     # @api private
     def initialize(name, type, **options)
-      super(name, options)
+      super(name, **options)
       @type = type
     end
 
