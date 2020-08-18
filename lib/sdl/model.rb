@@ -10,10 +10,6 @@ module SDL
     # @return [Name]
     attr_reader :name
 
-    # All of the fields that have been registered
-    # @return [Array<Field>]
-    attr_reader :fields
-
     # Any additional options
     # @return [Hash]
     attr_reader :options
@@ -24,6 +20,26 @@ module SDL
       @fields = fields
       @options = options
       instance_eval(&block) if block_given?
+    end
+
+    # Get or filter fields that have been registered
+    # @param types [Array<Symbol>] types to filter
+    # @return [Array<Field>]
+    def fields(*types)
+      return @fields if types.empty?
+
+      types.flat_map { |type|
+        case type
+        when :attribute
+          @fields.grep Attribute
+        when :association
+          @fields.grep Association
+        when :attachment
+          @fields.grep Attachment
+        else
+          @fields.select { |field| field.type == meth }
+        end
+      }
     end
 
     # Adds an {Attribute} to the model
