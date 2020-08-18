@@ -10,10 +10,6 @@ module SDL
     # @return [Name]
     attr_reader :name
 
-    # All of the fields that have been registered
-    # @return [Array<Field>]
-    attr_reader :fields
-
     # Any additional options
     # @return [Hash]
     attr_reader :options
@@ -24,6 +20,30 @@ module SDL
       @fields = fields
       @options = options
       instance_eval(&block) if block_given?
+    end
+
+    # List or filter fields that have been registered
+    # @param types [Array<Symbol>] types to filter
+    # @return [Array<Field>]
+    # @example List all fields
+    #   model.fields.each { |field| puts field.name }
+    # @example Filter fields
+    #   model.fields(:integer).each { |field| puts field.name }
+    def fields(*types)
+      return @fields if types.empty?
+
+      types.flat_map { |type|
+        case type
+        when :attribute
+          @fields.grep Attribute
+        when :association
+          @fields.grep Association
+        when :attachment
+          @fields.grep Attachment
+        else
+          @fields.select { |field| field.type == type }
+        end
+      }
     end
 
     # Adds an {Attribute} to the model
@@ -135,75 +155,92 @@ module SDL
     end
 
     # Get all {Attribute} fields
+    # @deprecated Use {#fields} instead
     # @return [Array<Attribute>]
     def attribute_fields
-      fields.grep Attribute
+      fields(:attribute)
     end
 
     # Get all {Association} fields
+    # @deprecated Use {#fields} instead
     # @return [Array<Association>]
     def association_fields
-      fields.grep Association
+      fields(:association)
     end
 
     # Get all {Attachment} fields
+    # @deprecated Use {#fields} instead
     # @return [Array<Attachment>]
     def attachment_fields
-      fields.grep Attachment
+      fields(:attachment)
     end
 
     # @!method id_fields
     #   Get all {Attribute} fields whose type is `:id`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method string_fields
     #   Get all {Attribute} fields whose type is `:string`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method boolean_fields
     #   Get all {Attribute} fields whose type is `:boolean`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method integer_fields
     #   Get all {Attribute} fields whose type is `:integer`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method float_fields
     #   Get all {Attribute} fields whose type is `:float`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method decimal_fields
     #   Get all {Attribute} fields whose type is `:decimal`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method date_fields
     #   Get all {Attribute} fields whose type is `:date`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method datetime_fields
     #   Get all {Attribute} fields whose type is `:datetime`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method text_fields
     #   Get all {Attribute} fields whose type is `:text`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method binary_fields
     #   Get all {Attribute} fields whose type is `:binary`
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attribute>]
     # @!method enum_fields
     #   Get all {Enum} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Enum>]
     # @!method belongs_to_fields
     #   Get all {Association::BelongsTo} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Association::BelongsTo>]
     # @!method has_one_fields
     #   Get all {Association::HasOne} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Assocation::HasOne>]
     # @!method has_many_fields
     #   Get all {Association::HasMany} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Association::HasMany>]
     # @!method has_one_attached_fields
     #   Get all {Attachment::HasOne} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attachment::HasOne>]
     # @!method has_many_attached_fields
     #   Get all {Attachment::HasMany} fields
+    #   @deprecated Use {#fields} instead
     #   @return [Array<Attachment::HasMany>]
-    TYPES.each do |meth|
-      define_method "#{meth}_fields" do
-        fields.select { |field| field.type == meth }
-      end
+    TYPES.each do |type|
+      define_method("#{type}_fields") { fields(type) }
     end
   end
 end
