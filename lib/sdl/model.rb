@@ -41,7 +41,7 @@ module SDL
         when :attachment
           @fields.grep Attachment
         else
-          @fields.select { |field| field.type == meth }
+          @fields.select { |field| field.type == type }
         end
       }
     end
